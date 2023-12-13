@@ -1,24 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.navbar')
 
 @section('content')
 <div class="container-md">
     <div class="row g-3">
         <div class="col-2">
-            <button type="submit" class="btn btn-light mb-3" data-bs-toggle="modal" data-bs-target="#addObat">
+            <button type="submit" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addObat">
                 Tambah Obat
             </button>
         </div>
         <div class="col-6 text-end">
-            <button type="submit" class="btn btn-warning mb-3">
-                {{ __('Print') }}
+            <button type="button" class="btn btn-info mb-3">
+                <a class="link-offset-2 link-underline link-underline-opacity-0 text-light" href="/print" target="_blank">Print</a>
             </button>
         </div>
         <div class="col-4">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2 text-center" type="search" placeholder="Cari Obat" aria-label="Search">
-                <button class="btn btn-outline-secondary" type="submit">
-                    {{ __('Search') }}
-                </button>
+            <form method="GET" action="/cari-obat" class="d-flex" role="search">
+                <input name="cari_obat" class="form-control me-2 text-center" type="search" placeholder="Cari Obat" aria-label="Search">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
             </form>
         </div>
     </div>
@@ -28,8 +26,8 @@
             <table class="table">
                 <thead class="table-primary">
                     <tr>
-                        <th class="text-center" scope="col" style="width: 15rem">Jumlah/Pack</th>
-                        <th scope="col" style="width: 22rem">Nama Obat</th>
+                        <th class="text-center" scope="col" style="width: 17rem">Jumlah/Pack</th>
+                        <th scope="col" style="width: 19rem">Nama Obat</th>
                         <th scope="col" style="width: 16rem">Jenis Obat</th>
                         <th scope="col">Aksi</th>
                     </tr>
@@ -100,8 +98,6 @@
         </div>
     </div>
   
-    
-
     <!-- Tambah Obat Modal -->
     <div class="modal fade" id="addObat" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addObat" aria-hidden="true">
         <div class="modal-dialog">

@@ -26,7 +26,7 @@
 <body style="background-color: #DDECFA">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-sm">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="/assets/logo.png" alt="Logo" width="115rem" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

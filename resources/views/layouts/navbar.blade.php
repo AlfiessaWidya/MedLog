@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}">
     
     <title>MedLog</title>
 
@@ -24,23 +26,32 @@
 <body style="background-color: #DDECFA">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-sm">
-            <a class="navbar-brand" href="#">
-                <img src="/assets/logo.png" alt="Logo" width="115rem" class="d-inline-block align-text-top">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <form method="POST" action="/">
+                @csrf
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/logo.png" alt="Logo" width="115rem" class="d-inline-block align-text-top">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </form>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+                    <form method="POST" action="/">
+                        @csrf
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
+                            </li>
+                        </ul>
+                    </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Riwayat</a>
-                        </li>
+                        <form method="POST" action="/riwayat">
+                            @csrf
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="/riwayat">Riwayat</a>
+                            </li>
+                        </form>
                     </ul>
                 </div>
             </div>

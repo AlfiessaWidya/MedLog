@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ObatModel;
+use DB;
+use PDF;
 
 class ObatController extends Controller
 {
@@ -57,5 +59,33 @@ class ObatController extends Controller
         ObatModel::destroy($id);
 
         return redirect()->back();
+    }
+
+    /**
+     * Search Obat
+     */
+    public function cari_obat(Request $req)
+    {
+        $obatData = $req->input('cari_obat');
+
+        $records = DB::table('obat')->where('nama_obat', 'like', '%' . $obatData . '%')
+            ->orwhere('jumlah_obat', 'like', '%' . $obatData . '%')
+            ->orwhere('jenis_obat', 'like', '%' . $obatData . '%')
+            ->get();
+        
+        return view('Obat.home')
+            ->with('obat', $records);
+    }
+
+    /**
+     * Print Obat
+     */
+    public function cetak_obat()
+    {
+        $obatData = ObatModel::select('*')
+            ->get();
+
+        $pdf = PDF::loadView('Obat.print', ['obat' => $obatData]);
+        return $pdf->stream('Laporan Data Obat.pdf');
     }
 }

@@ -29,9 +29,7 @@
                         </div>
                         
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">
-                                {{ __('Submit') }}
-                            </button>
+                            <button type="submit" class="btn btn-primary mb-3">Submit</button>
                         </div>
                     </form>
 
