@@ -13,7 +13,7 @@ class AdminController extends Controller
      */
     public function daftar_staff()
     {
-        $adminData = AdminModel::select('id_staff', 'nama_staff', 'password_staff')
+        $adminData = AdminModel::select('id_staff', 'nama_staff')
             ->orderBy('nama_staff', 'ASC')
             ->get();
 
@@ -28,7 +28,6 @@ class AdminController extends Controller
     {
         AdminModel::create([
             'nama_staff' => $req->nama_staff,
-            'password_staff' => $req->password_staff,
             'created_at' => date("Y-m-d h:i:s"),
             'updated_at' => null
         ]);
@@ -43,7 +42,6 @@ class AdminController extends Controller
     {
         AdminModel::where('id_staff', $id)->update([
             'nama_staff' => $req->nama_staff,
-            'password_staff' => $req->password_staff,
             'updated_at' => date("Y-m-d h:i:s")
         ]);
         
@@ -69,7 +67,6 @@ class AdminController extends Controller
 
         $records = DB::table('admin')->where('id_staff', 'like', '%' . $adminData . '%')
             ->orwhere('nama_staff', 'like', '%' . $adminData . '%')
-            ->orwhere('password_staff', 'like', '%' . $adminData . '%')
             ->get();
         
         return view('Admin.home')

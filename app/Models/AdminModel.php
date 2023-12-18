@@ -11,5 +11,5 @@ class AdminModel extends Model
 
     protected $table = 'admin';
     protected $primaryKey = 'id_staff';
-    protected $fillable = ['nama_staff', 'password_staff', 'created_at', 'updated_at'];
+    protected $fillable = ['nama_staff', 'created_at', 'updated_at'];
 }

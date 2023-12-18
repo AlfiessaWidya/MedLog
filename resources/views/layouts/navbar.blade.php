@@ -22,13 +22,17 @@
         }
     </style>
 
+    <!-- Fonts Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+
 </head>
 <body style="background-color: #DDECFA">
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-sm">
-            <form method="POST" action="/">
+            <form method="POST" action="/warehouse">
                 @csrf
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="/warehouse">
                     <img src="/assets/logo.png" alt="Logo" width="115rem" class="d-inline-block align-text-top">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,15 +41,15 @@
             </form>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <form method="POST" action="/">
-                        @csrf
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
-                            </li>
-                        </ul>
-                    </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <form method="POST" action="/warehouse">
+                            @csrf
+                            <li class="nav-item">
+                                <a class="nav-link active text-light" aria-current="page" href="/warehouse">Home</a>
+                            </li>
+                        </form>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                         <form method="POST" action="/riwayat">
                             @csrf
                             <li class="nav-item">
@@ -54,11 +58,25 @@
                         </form>
                     </ul>
                 </div>
+                <div class="d-flex ms-auto">
+                    <div class="btn-group">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
+                            <i class="fa fa-user" style="padding-right: 5px"></i>
+                            {{ Auth::user()->username }}
+                        </button>
+                        <ul class="dropdown-menu w-0">
+                            <form method="GET" action="/logout">
+                                @csrf
+                                <button class="btn" type="submit"><i class="fas fa-sign-out-alt" style="padding: 0px 9px 0px 24px"></i>Logout</button>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div id="app" class="container">
+    <div id="navbar" class="container">
         <main class="py-4">
             @yield('content')
         </main>

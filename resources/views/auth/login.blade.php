@@ -1,42 +1,62 @@
-@extends('layouts.app')
+@extends('layouts.session')
 
 @section('content')
 <div class="container-md">
-    <div class="row g-3" style="margin-top: 2rem">
-        <div class="col-3"></div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-title text-center" style="margin-top: 2rem">
-                    <p class="fs-2 fw-bolder">Login</p>
-                </div>
-                <div class="card-body" style="margin-bottom: 2rem">
-
-                    <form method="" action="">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        @csrf
-                        <label for="FloatingUsername" class="form-label fw-bolder">Username</label>
-                        <div class="form-floating mb-4">
-                            <input type="email" class="form-control" id="FloatingUsername" placeholder="name@example.com">
-                            <label for="floatingInput">Masukkan Username</label>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        {{-- Error Alert --}}
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{session('error')}}
+                            </div>
+                        @endif
+                        <div class="card-header">                           
+                            <h3 class="text-center fw-bold my-4">Login</h3>
                         </div>
-                        <label for="floatingPassword" class="form-label fw-bolder">Password</label>
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Masukkan Password</label>
-                            @if ($errors->has('password'))
-                                <span class="text-danger text-left">{{ $errors->first('password') }}</span>
-                            @endif
+                        <div class="card-body">
+                            <form action="{{url('proses_login')}}" method="POST" id="logForm">
+                                {{ csrf_field() }}
+                                <div class="form-group mb-3">
+                                    @error('login_gagal')
+                                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                            <span class="alert-inner--text"><strong>Warning!</strong>  {{ $message }}</span>
+                                        </div>
+                                        @enderror
+                                    <label class="small mb-1 fw-bold" for="floatingInput">Username</label>
+                                    <input class="form-control" id="floatingInput" name="username" type="text" placeholder="Masukkan Username" required/>
+                                    @if($errors->has('username'))
+                                        <span class="error">{{ $errors->first('username') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="small mb-1 fw-bold" for="floatingPassword">Password</label>
+                                    <input class="form-control" id="floatingPassword" type="password" name="password" placeholder="Masukkan Password" required/>
+                                    @if($errors->has('password'))
+                                    <span class="error">{{ $errors->first('password') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox"/>
+                                        <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <button class="btn w-100 btn-primary btn-block btn-login" type="submit">Submit</button>
+                                </div>
+                            </form>
                         </div>
-                        
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                        <div class="card-footer text-center">
+                            <div class="small" style="padding-top: 1rem">
+                                <p>Belum Punya Akun? <a href="{{route('register')}}">Registrasi</a></p>
+                            </div>
                         </div>
-                    </form>
-
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-3"></div>
-    </div>
-</div>
+    </main>
 @endsection
