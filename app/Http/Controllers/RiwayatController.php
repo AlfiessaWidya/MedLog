@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ObatModel;
+use App\Models\RiwayatModel;
 use DB;
 
 class RiwayatController extends Controller
@@ -13,12 +13,12 @@ class RiwayatController extends Controller
      */
     public function index()
     {
-        $riwayatData = ObatModel::select('id_obat', 'jumlah_obat', 'nama_obat', 'created_at', 'updated_at')
+        $riwayatData = RiwayatModel::select('jumlah_obat', 'nama_obat', 'created_at', 'updated_at')
             ->orderBy('updated_at', 'DESC')
             ->get();
 
         return view('Riwayat.home')
-            ->with('obat', $riwayatData);
+            ->with('riwayat', $riwayatData);
     }
 
     /**

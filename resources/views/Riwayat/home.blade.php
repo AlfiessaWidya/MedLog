@@ -10,10 +10,10 @@
                         <th class="text-center" scope="col" style="width: 15rem">Jumlah/Pack</th>
                         <th scope="col" style="width: 15rem">Nama Obat</th>
                         <th scope="col" style="width: 15rem">Masuk</th>
-                        <th scope="col" style="width: 15rem">Update</th>
+                        <th scope="col" style="width: 15rem">Perbarui</th>
                     </tr>
                 </thead>
-                @foreach ($obat as $rwt)
+                @foreach ($riwayat as $rwt)
                     <tbody>
                         <tr>
                             <td class="text-center">{{$rwt->jumlah_obat}}</td>
