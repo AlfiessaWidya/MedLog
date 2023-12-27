@@ -13,8 +13,8 @@ class RiwayatController extends Controller
      */
     public function index()
     {
-        $riwayatData = RiwayatModel::select('jumlah_obat', 'nama_obat', 'created_at', 'updated_at')
-            ->orderBy('updated_at', 'DESC')
+        $riwayatData = RiwayatModel::select('jumlah_obat', 'nama_obat', 'created_at', 'updated_at', 'deleted_at')
+            ->orderBy('id_riwayat', 'DESC')
             ->get();
 
         return view('Riwayat.home')

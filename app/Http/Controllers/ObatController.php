@@ -35,13 +35,13 @@ class ObatController extends Controller
             'created_at' => date("Y-m-d h:i:s"),
             'updated_at' => null
         ]);
-        RiwayatModel::create([
-            'nama_obat' => $req->nama_obat,
-            'jumlah_obat' => $req->jumlah_obat,
-            'jenis_obat' => $req->jenis_obat,
-            'created_at' => date("Y-m-d h:i:s"),
-            'updated_at' => null
-        ]);
+
+        $searchObat = ObatModel::select('id_obat', 'jumlah_obat', 'nama_obat', 'jenis_obat','created_at')
+            ->where('nama_obat', $req->nama_obat)
+            ->first();
+
+        $insertData = array("id_obat"=>$searchObat->id_obat, "jumlah_obat"=>$searchObat->jumlah_obat, "nama_obat"=>$searchObat->nama_obat, "jenis_obat"=>$searchObat->jenis_obat, "created_at"=>$searchObat->created_at);
+        DB::table('riwayat')->insert($insertData);
 
         return redirect()->back();
     }
@@ -56,10 +56,12 @@ class ObatController extends Controller
             'updated_at' => date("Y-m-d h:i:s")
         ]);
 
-        Model::where('id_obat', $id)->update([
-            'jumlah_obat' => $req->jumlah_obat,
-            'updated_at' => date("Y-m-d h:i:s")
-        ]);
+        $searchObat = ObatModel::select('id_obat', 'jumlah_obat', 'nama_obat', 'jenis_obat','updated_at')
+            ->where('id_obat', $id)
+            ->first();
+
+        $insertData = array("id_obat"=>$searchObat->id_obat, "jumlah_obat"=>$searchObat->jumlah_obat, "nama_obat"=>$searchObat->nama_obat, "jenis_obat"=>$searchObat->jenis_obat, "updated_at"=>$searchObat->updated_at);
+        DB::table('riwayat')->insert($insertData);
         
         return redirect()->back();
     }
@@ -69,6 +71,15 @@ class ObatController extends Controller
      */
     public function hapus_obat($id)
     {
+        $searchObat = ObatModel::select('id_obat', 'jumlah_obat', 'nama_obat', 'jenis_obat')
+            ->where('id_obat', $id)
+            ->first();
+        
+        $timenow = date("Y-m-d h:i:s");
+
+        $insertData = array("id_obat"=>$searchObat->id_obat, "jumlah_obat"=>$searchObat->jumlah_obat, "nama_obat"=>$searchObat->nama_obat, "jenis_obat"=>$searchObat->jenis_obat, "deleted_at"=>$timenow);
+        DB::table('riwayat')->insert($insertData);
+
         ObatModel::destroy($id);
 
         return redirect()->back();
