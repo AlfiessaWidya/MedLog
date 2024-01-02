@@ -6,13 +6,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5">
-                    <div class="card shadow-lg border-0 rounded-lg mt-5">
-                        {{-- Error Alert --}}
-                        @if(session('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{session('error')}}
-                            </div>
-                        @endif
+                    <div class="card shadow-lg border-0 rounded-lg mt-4">
                         <div class="card-header">                           
                             <h3 class="text-center fw-bold my-4">Login</h3>
                         </div>
@@ -20,23 +14,14 @@
                             <form action="{{url('proses_login')}}" method="POST" id="logForm">
                                 {{ csrf_field() }}
                                 <div class="form-group mb-3">
-                                    @error('login_gagal')
-                                        <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                            <span class="alert-inner--text"><strong>Warning!</strong>  {{ $message }}</span>
-                                        </div>
-                                        @enderror
                                     <label class="small mb-1 fw-bold" for="floatingInput">Username</label>
                                     <input class="form-control" id="floatingInput" name="username" type="text" placeholder="Masukkan Username" required/>
-                                    @if($errors->has('username'))
-                                        <span class="error">{{ $errors->first('username') }}</span>
-                                    @endif
+                                    
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="small mb-1 fw-bold" for="floatingPassword">Password</label>
                                     <input class="form-control" id="floatingPassword" type="password" name="password" placeholder="Masukkan Password" required/>
-                                    @if($errors->has('password'))
-                                    <span class="error">{{ $errors->first('password') }}</span>
-                                    @endif
+                                    <div class="form-text text-danger fw-light" id="basic-addon4">Password maksimal 8 karakter</div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">

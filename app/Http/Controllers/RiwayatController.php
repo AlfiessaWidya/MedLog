@@ -11,7 +11,7 @@ class RiwayatController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function daftar_obat()
     {
         $riwayatData = RiwayatModel::select('jumlah_obat', 'nama_obat', 'created_at', 'updated_at', 'deleted_at')
             ->orderBy('id_riwayat', 'DESC')

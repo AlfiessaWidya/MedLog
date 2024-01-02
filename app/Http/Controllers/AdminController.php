@@ -26,13 +26,26 @@ class AdminController extends Controller
      */
     public function tambah_staff(Request $req)
     {
-        AdminModel::create([
-            'nama_staff' => $req->nama_staff,
-            'created_at' => date("Y-m-d h:i:s"),
-            'updated_at' => null
-        ]);
+        try {
+            $req->validate([
+                'nama_staff' => 'required|string'
+            ]);
 
-        return redirect()->back();
+            AdminModel::create([
+                'nama_staff' => $req->nama_staff,
+                'created_at' => date("Y-m-d h:i:s"),
+                'updated_at' => null
+            ]);
+
+            toastr()->success('Data Berhasil Ditambahkan');
+
+            return redirect('/admin');
+            
+        } catch (\Exception $e) {
+            toastr()->error('Data Gagal Ditambahkan');
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -40,12 +53,25 @@ class AdminController extends Controller
      */
     public function ubah_staff(Request $req, $id)
     {
-        AdminModel::where('id_staff', $id)->update([
-            'nama_staff' => $req->nama_staff,
-            'updated_at' => date("Y-m-d h:i:s")
-        ]);
-        
-        return redirect()->back();
+        try {
+            $req->validate([
+                'nama_staff' => 'required|string'
+            ]);
+
+            AdminModel::where('id_staff', $id)->update([
+                'nama_staff' => $req->nama_staff,
+                'updated_at' => date("Y-m-d h:i:s")
+            ]);
+
+            toastr()->success('Data Berhasil Diperbarui');
+
+            return redirect('/admin');
+            
+        } catch (\Exception $e) {
+            toastr()->error('Data Gagal Diperbarui');
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -53,9 +79,18 @@ class AdminController extends Controller
      */
     public function hapus_staff(string $id)
     {
-        AdminModel::destroy($id);
+        try {
+            AdminModel::destroy($id);
 
-        return redirect()->back();
+            toastr()->success('Data Berhasil Dihapus');
+
+            return redirect('/admin');
+            
+        } catch (\Exception $e) {
+            toastr()->error('Data Gagal Dihapus');
+
+            return redirect()->back();
+        }
     }
 
     /**

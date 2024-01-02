@@ -50,20 +50,24 @@ class AuthController extends Controller
             $user =  Auth::user();
             // cek lagi jika level user admin maka arahkan ke halaman admin
             if($user->level =='admin'){
+                toastr()->success('Berhasil Login Sebagai Admin');
                 return redirect()->intended('admin');
-
             }
                 // tapi jika level user nya user biasa maka arahkan ke halaman user
                else if($user->level =='user'){
+                toastr()->success('Berhasil Login Sebagai User');
                 return redirect()->intended('warehouse');
             }
              // jika belum ada role maka ke halaman /
+            toastr()->warning('Silahkan Pilih Status');
             return redirect()->intended('/');
         }
 
         // jika ga ada data user yang valid maka kembalikan lagi ke halaman login
         // pastikan kirim pesan error juga kalau login gagal ya
-        return redirect('login')
+        toastr()->warning('Username atau Password Salah');
+
+        return redirect('/')
             ->withInput()
             ->withErrors(['login_gagal'=>'Username atau password salah']);
         }
@@ -82,24 +86,31 @@ class AuthController extends Controller
             $validator =  Validator::make($request->all(),[
                 'username'=>'required|unique:users',
                 'level'=>'required',
-                'password'=>'required'
+                'password'=>'required|max:8'
             ]);
             
             // kalau gagal kembali ke halaman register dengan munculkan pesan error
             if($validator ->fails()) {
+                toastr()->error('Maaf, Registrasi Gagal');
                 return redirect('/register')
                 ->withErrors($validator)
                 ->withInput();
             }
 
             // kalau berhasil isi level & hash passwordnya ya biar secure
-            $request['level']='user';
+            if ($request->level == 'admin') {
+                $request['level'] = 'admin';
+            } elseif ($request->level == 'user') {
+                $request['level'] = 'user';
+            }
             $request['password'] = bcrypt($request->password);
 
             // masukkan semua data pada request ke table user
             User::create($request->all());
 
             // kalo berhasil arahkan ke halaman login
+            toastr()->success('Selamat, Registrasi Berhasil');
+
             return redirect()->route('login');
         }
 
@@ -111,6 +122,8 @@ class AuthController extends Controller
             // jalan kan juga fungsi logout pada auth 
 
             Auth::logout();
+
+            toastr()->success('Berhasil Logout');
             // kembali kan ke halaman login
             return Redirect('/');
       }
